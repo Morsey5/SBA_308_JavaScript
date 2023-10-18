@@ -74,3 +74,7 @@ const LearnerSubmissions = [
       }
     }
   ];
+
+  function getLearnerData(CourseInfo, AssignmentGroup, [LearnerSubmissions]) {
+    
+  }
