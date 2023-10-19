@@ -129,6 +129,7 @@ const LearnerSubmissions = [
     return result;
   }
   
-  // Example usage
+  
   const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-  console.log(result);
+  console.log(result); //  { '1': 94, '2': 100, '3': 80, id: 125, avg: 68.5 },
+                       // { '1': 78, '2': 84, id: 132, avg: 40.5 }
