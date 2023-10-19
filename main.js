@@ -75,6 +75,23 @@ const LearnerSubmissions = [
     }
   ];
 
-  function getLearnerData(CourseInfo, AssignmentGroup, [LearnerSubmissions]) {
-    
-  }
+  function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
+    // Initialize an object to store learner data
+    const learnerData = {};
+  
+    // Validate that the assignment group belongs to the course
+    if (assignmentGroup.course_id !== courseInfo.id) {
+      throw new Error('Assignment group does not belong to its course.');
+    }
+  
+    // Iterate through learner submissions
+    for (const submission of learnerSubmissions) {
+      // Check if the learner is already in the learnerData object
+      if (!learnerData[submission.learner_id]) {
+        learnerData[submission.learner_id] = {
+          id: submission.learner_id,
+          avg: 0,
+        };
+      }
+  
+      
