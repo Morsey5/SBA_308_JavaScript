@@ -94,4 +94,41 @@ const LearnerSubmissions = [
         };
       }
   
-      
+      // Get the learner data
+      const learner = learnerData[submission.learner_id];
+  
+      // Find the assignment
+      const assignment = assignmentGroup.assignments.find(a => a.id === submission.assignment_id);
+  
+      if (!assignment) {
+        // Assignment not found
+        console.error(`Assignment with ID ${submission.assignment_id} not found.`);
+        continue;
+      }
+  
+      // Check if the submission is late
+      if (new Date(submission.submission.submitted_at) > new Date(assignment.due_at)) {
+        // Handle late submission by reducing the score by 10%
+        const latePenalty = submission.submission.score * 0.10;
+        submission.submission.score -= latePenalty;
+      }
+  
+      // Calculate the assignment score as a percentage
+      const assignmentScore = (submission.submission.score / assignment.points_possible) * 100;
+  
+      // Update the average 
+      learner.avg += (assignmentScore * (assignmentGroup.group_weight / 100));
+  
+      // Store the assignment score
+      learner[submission.assignment_id] = assignmentScore;
+    }
+  
+    // Convert the learnerData
+    const result = Object.values(learnerData);
+  
+    return result;
+  }
+  
+  // Example usage
+  const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+  console.log(result);
